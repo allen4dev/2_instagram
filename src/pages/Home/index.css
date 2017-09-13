@@ -4,3 +4,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.Home > .Card {
+  width: 85%;
+}
+
+.Home .PhotoList {
+  width: calc(85% + 2em);
+}

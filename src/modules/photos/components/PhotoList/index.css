@@ -1,4 +1,11 @@
 .PhotoList {
-  border: 4px solid blue;
-  /* height: 60%; */
+  display: flex;
+  flex-wrap: wrap;
+  padding: .5em;
+  /*width: calc(85% + 2em);*/
+}
+
+.PhotoList .Card {
+  width: calc((100% / 3) - 1em);
+  margin: .5em;
 }

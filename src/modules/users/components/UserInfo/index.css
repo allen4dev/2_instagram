@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 80%;
+  padding: var(--medium);
 }
 
 .UserInfo-username {
