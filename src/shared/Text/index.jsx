@@ -1,6 +1,8 @@
 import React from 'react';
 import { string } from 'prop-types';
 
+import './index.css'
+
 function Text({ color, children }) {
   const style = { color: `var(--${color})` };
   return (

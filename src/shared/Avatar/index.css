@@ -1,0 +1,10 @@
+.Avatar {
+  border: 6px solid var(--main);
+  font-size: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.Avatar-image {
+  max-width: 100%;
+}

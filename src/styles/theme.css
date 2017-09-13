@@ -2,6 +2,7 @@
   /* Colors */
   --pink: #ed616e;
   --text: #808fa3;
+  --text-dark: #585d63;
   --blue: #3897f0;
   --light-blue: #6589b8;
   --white: #ffffff;
@@ -11,6 +12,7 @@
   --font-small: 0.8em;
   --font-medium: 1em;
   --font-big: 1.2em;
+  --font-extra-big: 1.5em;
 
   /* spaces */
   --small: 0.5em;

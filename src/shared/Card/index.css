@@ -1,0 +1,9 @@
+.Card {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  padding: var(--medium);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
