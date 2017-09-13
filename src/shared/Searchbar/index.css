@@ -1,0 +1,9 @@
+.Searchbar {
+  flex-basis: 40%;
+}
+
+.Searchbar-input {
+  padding: 0.2em 0.5em;
+  font-size: var(--font-medium);
+  width: 100%;
+}

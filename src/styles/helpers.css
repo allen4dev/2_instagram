@@ -1,0 +1,11 @@
+/* Wrappers */
+.container {
+  /* replace in theme */
+  padding: 2em var(--container);
+  /* height: calc(100vh - var(--header-height)); */
+  margin-top: var(--header-height);
+}
+/* Buttons */
+.btn {
+  background-color: var(--pink);
+}
