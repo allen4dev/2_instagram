@@ -11,3 +11,7 @@
   right: 0;
   z-index: var(--header-z);
 }
+
+.Header-searchbar {
+  flex-basis: 40%;
+}

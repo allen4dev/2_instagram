@@ -1,0 +1,13 @@
+.Comment {
+  display: flex;
+  align-items: center;
+  margin: 1em 0;
+}
+
+.Comment-description {
+  margin-left: var(--medium);
+}
+
+.Comment-fullname {
+  font-weight: bold;
+}

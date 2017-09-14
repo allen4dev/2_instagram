@@ -7,10 +7,10 @@ import './index.css';
 
 function Home() {
   return (
-    <div className="Home container">
+    <section className="Home container">
       <UserInfo />
       <PhotoList />
-    </div>
+    </section>
   );
 }
 

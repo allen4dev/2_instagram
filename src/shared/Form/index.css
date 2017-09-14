@@ -1,8 +1,7 @@
-.Searchbar {
-  flex-basis: 40%;
+.Form {
 }
 
-.Searchbar-input {
+.Form-input {
   padding: 0.2em 0.5em;
   font-size: var(--font-medium);
   width: 100%;

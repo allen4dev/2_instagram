@@ -14,7 +14,11 @@ function Text({ color, children }) {
 
 Text.propTypes = {
   children: string.isRequired,
-  color: string.isRequired,
+  color: string,
 };
+
+Text.defaultProps = {
+  color: 'text'
+}
 
 export default Text;

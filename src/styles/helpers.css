@@ -2,7 +2,7 @@
 .container {
   /* replace in theme */
   padding: 2em 0;
-  /* height: calc(100vh - var(--header-height)); */
+  /*height: calc(100vh - var(--header-height));*/
   max-width: 1024px;
   margin: auto;
   margin-top: var(--header-height);
