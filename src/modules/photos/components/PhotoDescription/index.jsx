@@ -13,22 +13,30 @@ function PhotoDescription() {
   return (
     <div className="PhotoDescription">
       <div className="PhotoDescription-header">
-        <Avatar description="Alan Aliaga" />
+        <Avatar
+          src="https://avatarfiles.alphacoders.com/846/84606.jpg"
+          description="Alan Aliaga"
+          width={20}
+        />
         <div className="PhotoDescription-user">
           <span className="PhotoDescription-fullname">Alan Aliaga</span>
           <span className="PhotoDescription-time">12:30</span>
         </div>
-        <Text>Illidan Tempestira is my favorite character in the World of Warcraft Universe</Text>
       </div>
 
+      <Text>
+        Illidan Tempestira is my favorite character in the World of Warcraft
+        Universe
+      </Text>
+
+      <Title>Comments</Title>
       <div className="PhotoDescription-comments">
-        <Title />
-        <CommentList /> 
+        <CommentList />
       </div>
 
       <Form />
     </div>
-  )
+  );
 }
 
 export default PhotoDescription;
