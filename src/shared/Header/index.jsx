@@ -24,7 +24,7 @@ function renderActions(authed) {
   }
   return (
     <Link className="Header-link" to="/signin">
-      Login
+      <button className="btn btn-flat">Login</button>
     </Link>
   );
 }

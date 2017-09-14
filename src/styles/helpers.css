@@ -7,7 +7,32 @@
   margin: auto;
   margin-top: var(--header-height);
 }
+
 /* Buttons */
 .btn {
-  background-color: var(--pink);
+  background-color: var(--blue);
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+  color: white;
+  cursor: pointer;
+  padding: var(--medium) var(--big);
+}
+
+.btn-flat {
+  background-color: transparent;
+  color: var(--text);
+  box-shadow: none;
+}
+
+.btn-twitter {
+  background-color: var(--twitter);
+}
+
+.btn-google {
+  background-color: var(--google);
+}
+
+.btn-facebook {
+  background-color: var(--facebook);
 }
