@@ -36,3 +36,10 @@
 .btn-facebook {
   background-color: var(--facebook);
 }
+
+.btn-add {
+  border-radius: 50%;
+  font-size: var(--font-big);
+  font-weight: bold;
+  padding: var(--medium);
+}

@@ -8,6 +8,7 @@ import Detail from './pages/Detail';
 import Error404 from './pages/Error404';
 import Signin from './pages/Signin';
 import Profile from './pages/Profile';
+
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -58,7 +59,6 @@ class App extends Component {
       <div className="App">
         <Header authed={this.state.authed} />
         <Switch>
-          <PrivateRoute authed={authed} exact path="/" component={Home} />
           <PublicRoute authed={authed} path="/signin" component={Signin} />
           <PrivateRoute authed={authed} path="/detail/:id" component={Detail} />
           <PrivateRoute
@@ -66,6 +66,8 @@ class App extends Component {
             path="/profile/:id"
             component={Profile}
           />
+          <PrivateRoute authed={authed} path="/" component={Home} />
+          {/* Refactor: Loose this page if ommit the exact path in / */}
           <Route component={Error404} />
         </Switch>
       </div>

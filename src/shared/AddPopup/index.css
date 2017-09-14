@@ -1,0 +1,41 @@
+.AddPopup {
+  background-color: white;
+  border-radius: 5px;
+  padding: var(--big);
+  position: fixed;
+  z-index: 1000;
+  top: 25%;
+  left: 25%;
+}
+
+.AddPopup-header {
+  display: flex;
+  align-items: center;
+}
+
+.AddPopup-header .SimpleText {
+  margin-left: var(--medium);
+}
+
+.AddPopup-description {
+  background-color: var(--main);
+  border: none;
+  border-radius: 5px;
+  display: block;
+  font-size: var(--medium);
+  margin: var(--big) 0;
+  padding: var(--small);
+  width: 100%;
+}
+.AddPopup-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.AddPopup-footer .btn:last-of-type {
+  margin-left: var(--medium);
+}
+
+.AddPopup-cancel {
+  text-decoration: none;
+}
