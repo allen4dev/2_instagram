@@ -9,7 +9,7 @@ test('should return the initial state', () => {
   expect(reducer(undefined, {})).toEqual({ entities: {} });
 });
 
-describe('entities', () => {
+describe('photos qentities', () => {
   test('should handle ADD_PHOTO', () => {
     const photo = fixtures.getPhoto();
 
@@ -28,8 +28,8 @@ describe('entities', () => {
             [photo.id]: photo,
           },
         },
-        actions.addPhoto(newPhoto)
-      )
+        actions.addPhoto(newPhoto),
+      ),
     ).toEqual({
       entities: {
         [photo.id]: photo,
