@@ -4,8 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
-// Here comes Provider from redux internationalization and
-// common stuff for client and server.
 function renderApp() {
   render(
     <BrowserRouter>
