@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Avatar from './../Avatar';
@@ -9,9 +9,9 @@ import './index.css';
 
 // Refactor: Should be component of feature Photos and manage
 //           the handleAdd in Home container (set false in overlay)
-function AddPopup({ handleClose, handleAdd }) {
+function AddPopup({ handleClose, handleAdd, handleChange, description }) {
   return (
-    <form className="AddPopup">
+    <form className="AddPopup" onSubmit={handleAdd}>
       <header className="AddPopup-header">
         <Avatar
           src="https://avatarfiles.alphacoders.com/846/84606.jpg"
@@ -21,30 +21,40 @@ function AddPopup({ handleClose, handleAdd }) {
         <SimpleText>Alan Aliaga</SimpleText>
       </header>
       <div className="AddPopup-body">
-        <textarea className="AddPopup-description" rows="10" />
+        <textarea
+          className="AddPopup-description"
+          rows="10"
+          name="description"
+          onChange={handleChange}
+          value={description}
+        />
         <input
           className="AddPopup-inputFile"
           type="file"
+          name="photo"
+          onChange={handleChange}
         />
       </div>
       <footer className="AddPopup-footer">
         <Link to="/" className="AddPopup-cancel">
-          <button className="btn" onClick={handleClose}>Cancel</button>
+          <button className="btn" onClick={handleClose}>
+            Cancel
+          </button>
         </Link>
-        <button
-          className="btn"
-          onClick={handleAdd}
-        >
+        <button className="btn" type="submit">
           Post
         </button>
       </footer>
     </form>
-  )
+  );
 }
 
 AddPopup.propTypes = {
   handleClose: func.isRequired,
-  handleAdd: func.isRequired    
-}
+  handleAdd: func.isRequired,
+  handleChange: func.isRequired,
+
+  description: string.isRequired,
+};
 
 export default AddPopup;

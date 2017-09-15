@@ -42,6 +42,7 @@ const developmentConfig = function developmentConfig() {
     parts.setupHMR(),
     // config
     parts.devServer(),
+    parts.setSourceMap('eval'),
   ]);
 
   return devConfig;

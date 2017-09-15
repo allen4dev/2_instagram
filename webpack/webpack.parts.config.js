@@ -100,3 +100,9 @@ exports.devServer = function devServer() {
     },
   };
 };
+
+exports.setSourceMap = function sourceMap(type) {
+  return {
+    devtool: type,
+  };
+};
