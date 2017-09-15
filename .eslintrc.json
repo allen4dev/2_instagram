@@ -17,6 +17,8 @@
   },
   "rules": {
     "jsx-a11y/accessible-emoji": 0,
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "no-debugger": 1,
+    "react/no-did-mount-set-state": 0
   }
 }

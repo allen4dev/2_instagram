@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { shape, func } from 'prop-types';
+import { shape, func, arrayOf, object } from 'prop-types';
+import { connect } from 'react-redux';
 
 import PrivateRoute from './../../PrivateRoute';
 
@@ -10,9 +11,9 @@ import AddButton from './../../shared/Button';
 import AddPopup from './../../shared/AddPopup';
 import Overlay from './../../shared/Overlay';
 
-import { database, storage } from './../../config/firebase';
-
 import './index.css';
+
+import photos from './../../modules/photos';
 
 class Home extends Component {
   constructor(props) {
@@ -27,22 +28,17 @@ class Home extends Component {
       overlay: false,
       description: '',
       photo: null,
-      photos: [],
+      loading: true,
     };
   }
 
-  componentDidMount() {
-    if (this.state.photos.length === 0) {
-      database.ref('photos').on('child_added', snapshot => {
-        const photos = [...this.state.photos, snapshot.val()];
-        console.log('PHOTOS_ADDED', photos);
-        this.setState({ photos });
-      });
-    }
-  }
+  async componentDidMount() {
+    const { userPhotos, fetchUserPhotos } = this.props;
 
-  componentWillUnmount() {
-    database.ref('photos').off('child_added');
+    if (userPhotos.length === 0) {
+      await fetchUserPhotos();
+    }
+    this.setState({ loading: false });
   }
 
   setOverlay() {
@@ -66,47 +62,28 @@ class Home extends Component {
     this.setState({ [name]: value });
   }
 
-  handleAdd(e) {
+  async handleAdd(e) {
     e.preventDefault();
     const { photo, description } = this.state;
+    const { postPhoto } = this.props;
 
-    const storageRef = storage.ref(`photos/${photo.name}`);
-    const task = storageRef.put(photo);
+    await postPhoto(photo, description);
 
-    task.on(
-      'state_changed',
-      snapshot => {
-        const percentage =
-          snapshot.bytesTransferred / snapshot.totalBytes * 100;
-        console.log(percentage);
-      },
-      error => {
-        console.log(error.message);
-      },
-      () => {
-        const photosRef = database.ref('photos');
-        const newPicture = photosRef.push();
-
-        const record = {
-          id: newPicture.key,
-          description,
-          src: task.snapshot.downloadURL,
-        };
-
-        newPicture.set(record).then(() => {
-          this.setState({ overlay: false });
-          this.props.history.push('/');
-        });
-      }
-    );
+    this.setState({ overlay: false }, () => {
+      this.props.history.push('/');
+    });
   }
 
   render() {
+    if (this.state.loading) {
+      return <h1>Loading</h1>;
+    }
     return (
       <section className="Home container">
         {this.state.overlay && <Overlay />}
         <PrivateRoute
           path="/add"
+          exact
           authed
           component={AddPopup}
           handleClose={this.closeOverlay}
@@ -115,7 +92,7 @@ class Home extends Component {
           description={this.state.description}
         />
         <UserInfo />
-        <PhotoList photos={this.state.photos} />
+        <PhotoList photos={this.props.userPhotos} />
         <div className="Home-button">
           <AddButton handleClick={this.setOverlay} />
         </div>
@@ -125,9 +102,20 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  userPhotos: arrayOf(object).isRequired,
+  fetchUserPhotos: func.isRequired,
+  postPhoto: func.isRequired,
+
   history: shape({
     push: func,
   }).isRequired,
 };
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    userPhotos: Object.values(state.photos.entities),
+  };
+}
+
+export default connect(mapStateToProps, photos.actions)(Home);
+// export default Home;

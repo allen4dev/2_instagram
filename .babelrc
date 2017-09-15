@@ -4,14 +4,20 @@
       "env",
       {
         "targets": {
-          "browsers": "last 2 versions"
+          "browsers": "last 2 versions",
+          "node": "current"
         },
         "modules": false
       }
     ],
     "react"
   ],
-  "plugins": ["react-hot-loader/babel", "transform-object-rest-spread"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-object-rest-spread",
+    "transform-regenerator",
+    "transform-runtime"
+  ],
   "env": {
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
