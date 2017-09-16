@@ -37,36 +37,24 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const {
-      currentUser,
-      userPhotos,
-      addPhoto,
-      setCurrentUser,
-      addUser,
-      addUserPhoto,
-      fetchUserPhotos,
-    } = this.props;
+    const { currentUser, userPhotos, addPhoto, addUserPhoto, fetchUserPhotos, postUser } = this.props;
 
-    const { uid, displayName, email } = getCurrentUser();
+    const user = getCurrentUser();
 
     if (!currentUser) {
-      setCurrentUser(uid);
-      addUser({ uid, displayName, email });
+      await postUser(user);
     }
 
     if (userPhotos.length <= 1) {
-      const results = await fetchUserPhotos(uid);
+      const results = await fetchUserPhotos(user.uid);
 
-      database
-        .ref('photos')
-        .child(uid)
-        .on('child_added', snapshot => {
-          if (results.includes(snapshot.val().id)) {
-            return;
-          }
-          addPhoto(snapshot.val());
-          addUserPhoto(uid, snapshot.val().id);
-        });
+      database.ref('photos').child(user.uid).on('child_added', snapshot => {
+        if (results.includes(snapshot.val().id)) {
+          return;
+        }
+        addPhoto(snapshot.val());
+        addUserPhoto(user.uid, snapshot.val().id);
+      });
     }
     this.setState({ loading: false });
   }
@@ -145,8 +133,7 @@ Home.propTypes = {
   // postPhoto: func.isRequired,
   addPhoto: func.isRequired,
   addUserPhoto: func.isRequired,
-  setCurrentUser: func.isRequired,
-  addUser: func.isRequired,
+  postUser: func.isRequired,
 
   history: shape({
     push: func,

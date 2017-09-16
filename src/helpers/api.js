@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import { database, storage } from './../config/firebase';
 
 const photosRef = database.ref('photos');
+const usersRef = database.ref('users');
 
 const api = {
   photos: {
@@ -34,6 +35,14 @@ const api = {
       const task = await photosStorage.put(photo);
 
       return task;
+    },
+  },
+
+  users: {
+    async saveUser(user) {
+      const filterUser = { uid: user.uid, email: user.email, displayName: user.displayName };
+      await usersRef.child(filterUser.uid).set(filterUser);
+      return filterUser;
     },
   },
 };

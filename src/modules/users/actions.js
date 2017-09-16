@@ -49,3 +49,13 @@ export function fetchUserPhotos(uid) {
     return Object.keys(response);
   };
 }
+
+export function postUser(user) {
+  return async dispatch => {
+    const record = await api.users.saveUser(user);
+    dispatch(setCurrentUser(record.uid));
+    dispatch(addUser(record));
+
+    return record;
+  };
+}
