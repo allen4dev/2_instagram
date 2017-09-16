@@ -11,13 +11,13 @@ import './index.css';
 function PhotoList({ photos }) {
   return (
     <div className="PhotoList">
-      {photos.map(photo => (
+      {photos.map(photo =>
         <Card key={photo.id}>
-          <Link to={`/detail/${photo.id}`}>
+          <Link to={`/detail/${photo.uid}/${photo.id}`}>
             <Photo {...photo} />
           </Link>
-        </Card>
-      ))}
+        </Card>,
+      )}
     </div>
   );
 }

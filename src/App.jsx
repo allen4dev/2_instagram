@@ -63,16 +63,8 @@ class App extends Component {
           <Header authed={this.state.authed} />
           <Switch>
             <PublicRoute authed={authed} path="/signin" component={Signin} />
-            <PrivateRoute
-              authed={authed}
-              path="/detail/:id"
-              component={Detail}
-            />
-            <PrivateRoute
-              authed={authed}
-              path="/profile/:id"
-              component={Profile}
-            />
+            <PrivateRoute authed={authed} path="/detail/:uid/:id" component={Detail} />
+            <PrivateRoute authed={authed} path="/profile/:id" component={Profile} />
             <PrivateRoute authed={authed} path="/" component={Home} />
             {/* Refactor: Loose this page if ommit the exact path in / */}
             <Route component={Error404} />

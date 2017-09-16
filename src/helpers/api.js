@@ -8,8 +8,8 @@ const usersRef = database.ref('users');
 const api = {
   photos: {
     // should receibe userId
-    async getSingle(id) {
-      const snapshot = await photosRef.child(id).once('value');
+    async getSingle(uid, id) {
+      const snapshot = await photosRef.child(uid).child(id).once('value');
       return snapshot.val();
     },
 
@@ -19,12 +19,11 @@ const api = {
       return snapshot.val() || {};
     },
 
-    async savePhoto({ userId, src, description = '' }) {
-      const newPhoto = photosRef.child(userId).push();
+    async savePhoto(info) {
+      const newPhoto = photosRef.child(info.uid).push();
       const record = {
         id: newPhoto.key,
-        description,
-        src,
+        ...info,
       };
 
       await newPhoto.set(record);

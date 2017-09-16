@@ -22,7 +22,7 @@ class Detail extends Component {
     const { match, photo, fetchSingle } = this.props;
 
     if (!photo) {
-      await fetchSingle(match.params.id);
+      await fetchSingle(match.params.uid, match.params.id);
     }
 
     this.setState({ loading: false });
@@ -33,14 +33,14 @@ class Detail extends Component {
       return <h1>Loading...</h1>;
     }
 
-    const { src, description } = this.props.photo;
+    const { photo } = this.props;
 
     return (
       <section className="Detail container">
         <div className="Detail-photo">
-          <Photo src={src} description={description} />
+          <Photo src={photo.src} description={photo.description} />
         </div>
-        <PhotoDescription />
+        <PhotoDescription {...photo} />
       </section>
     );
   }

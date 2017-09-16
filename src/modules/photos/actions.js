@@ -18,9 +18,9 @@ export function addPhotos(photos) {
 }
 
 // Async Actions
-export function fetchSingle(id) {
+export function fetchSingle(uid, id) {
   return async dispatch => {
-    const snapshot = await api.photos.getSingle(id);
+    const snapshot = await api.photos.getSingle(uid, id);
 
     dispatch(addPhoto(snapshot));
 
@@ -28,12 +28,12 @@ export function fetchSingle(id) {
   };
 }
 
-export function postPhoto(userId, photo, description) {
+// export function postPhoto(userId, photo, description) {
+export function postPhoto(photo, info) {
   return async dispatch => {
     const snapshot = await api.photos.savePhotoToStorage(photo);
     const newPhoto = await api.photos.savePhoto({
-      userId,
-      description,
+      ...info,
       src: snapshot.downloadURL,
     });
 

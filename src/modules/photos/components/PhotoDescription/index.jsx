@@ -1,4 +1,5 @@
 import React from 'react';
+import { string } from 'prop-types';
 
 import CommentList from './../../../comments/components/CommentList';
 
@@ -9,24 +10,21 @@ import Form from './../../../../shared/Form';
 
 import './index.css';
 
-function PhotoDescription() {
+function PhotoDescription(props) {
   return (
     <div className="PhotoDescription">
       <div className="PhotoDescription-header">
-        <Avatar
-          src="https://avatarfiles.alphacoders.com/846/84606.jpg"
-          description="Alan Aliaga"
-          width={20}
-        />
+        <Avatar src={props.avatar} description={props.displayName} width={20} />
         <div className="PhotoDescription-user">
-          <span className="PhotoDescription-fullname">Alan Aliaga</span>
+          <span className="PhotoDescription-fullname">
+            {props.displayName}
+          </span>
           <span className="PhotoDescription-time">12:30</span>
         </div>
       </div>
 
       <Text>
-        Illidan Tempestira is my favorite character in the World of Warcraft
-        Universe
+        {props.description}
       </Text>
 
       <Title>Comments</Title>
@@ -38,5 +36,11 @@ function PhotoDescription() {
     </div>
   );
 }
+
+PhotoDescription.propTypes = {
+  description: string.isRequired,
+  avatar: string.isRequired,
+  displayName: string.isRequired,
+};
 
 export default PhotoDescription;

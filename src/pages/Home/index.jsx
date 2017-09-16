@@ -92,7 +92,15 @@ class Home extends Component {
     const { photo, description } = this.state;
     const { postPhoto, currentUser } = this.props;
 
-    await postPhoto(currentUser, photo, description);
+    const user = getCurrentUser();
+    const info = {
+      uid: currentUser,
+      description,
+      avatar: user.photoURL,
+      displayName: user.displayName,
+    };
+
+    await postPhoto(photo, info);
 
     this.setState({ overlay: false }, () => {
       this.props.history.push('/');
