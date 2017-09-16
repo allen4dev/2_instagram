@@ -7,6 +7,11 @@ const photosRef = database.ref('photos');
 const api = {
   photos: {
     // should receibe userId
+    async getSingle(id) {
+      const snapshot = await photosRef.child(id).once('value');
+      return snapshot.val();
+    },
+
     async getUserPhotos() {
       const snapshot = await photosRef.once('value');
       return snapshot.val();

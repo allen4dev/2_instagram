@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { shape, func, arrayOf, object } from 'prop-types';
 import { connect } from 'react-redux';
+import { database } from './../../config/firebase';
 
 import PrivateRoute from './../../PrivateRoute';
 
@@ -33,10 +34,13 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const { userPhotos, fetchUserPhotos } = this.props;
+    const { userPhotos, addPhoto } = this.props;
 
-    if (userPhotos.length === 0) {
-      await fetchUserPhotos();
+    if (userPhotos.length <= 1) {
+      //   await fetchUserPhotos();
+      database.ref('photos').on('child_added', snapshot => {
+        addPhoto(snapshot.val());
+      });
     }
     this.setState({ loading: false });
   }
@@ -103,8 +107,9 @@ class Home extends Component {
 
 Home.propTypes = {
   userPhotos: arrayOf(object).isRequired,
-  fetchUserPhotos: func.isRequired,
-  postPhoto: func.isRequired,
+  // fetchUserPhotos: func.isRequired,
+  // postPhoto: func.isRequired,
+  addPhoto: func.isRequired,
 
   history: shape({
     push: func,

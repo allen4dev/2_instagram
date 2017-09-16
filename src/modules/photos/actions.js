@@ -18,6 +18,16 @@ export function addPhotos(photos) {
 }
 
 // Async Actions
+export function fetchSingle(id) {
+  return async dispatch => {
+    const snapshot = await api.photos.getSingle(id);
+
+    dispatch(addPhoto(snapshot));
+
+    return snapshot;
+  };
+}
+
 export function fetchUserPhotos() {
   return async dispatch => {
     const response = await api.photos.getUserPhotos();
