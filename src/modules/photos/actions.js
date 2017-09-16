@@ -28,20 +28,13 @@ export function fetchSingle(id) {
   };
 }
 
-export function fetchUserPhotos() {
-  return async dispatch => {
-    const response = await api.photos.getUserPhotos();
-    dispatch(addPhotos(response));
-    return response;
-  };
-}
-
-export function postPhoto(photo, description) {
+export function postPhoto(userId, photo, description) {
   return async dispatch => {
     const snapshot = await api.photos.savePhotoToStorage(photo);
     const newPhoto = await api.photos.savePhoto({
-      src: snapshot.downloadURL,
+      userId,
       description,
+      src: snapshot.downloadURL,
     });
 
     dispatch(addPhoto(newPhoto));

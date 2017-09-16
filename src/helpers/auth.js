@@ -6,6 +6,10 @@ export function loginWithGoogle() {
   return auth().signInWithPopup(provider);
 }
 
+export function getCurrentUser() {
+  return auth().currentUser;
+}
+
 export function logout() {
   return auth().signOut();
 }

@@ -12,13 +12,14 @@ const api = {
       return snapshot.val();
     },
 
-    async getUserPhotos() {
-      const snapshot = await photosRef.once('value');
-      return snapshot.val();
+    async getUserPhotos(userId) {
+      const ref = photosRef.child(userId);
+      const snapshot = await ref.once('value');
+      return snapshot.val() || {};
     },
 
-    async savePhoto({ src, description = '' }) {
-      const newPhoto = photosRef.push();
+    async savePhoto({ userId, src, description = '' }) {
+      const newPhoto = photosRef.child(userId).push();
       const record = {
         id: newPhoto.key,
         description,

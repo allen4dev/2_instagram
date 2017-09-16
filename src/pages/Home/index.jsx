@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shape, func, arrayOf, object } from 'prop-types';
+import { shape, func, arrayOf, object, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { database } from './../../config/firebase';
 
@@ -14,7 +14,10 @@ import Overlay from './../../shared/Overlay';
 
 import './index.css';
 
+import { getCurrentUser } from './../../helpers/auth';
+
 import photos from './../../modules/photos';
+import users from './../../modules/users';
 
 class Home extends Component {
   constructor(props) {
@@ -34,16 +37,46 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const { userPhotos, addPhoto } = this.props;
+    const {
+      currentUser,
+      userPhotos,
+      addPhoto,
+      setCurrentUser,
+      addUser,
+      addUserPhoto,
+      fetchUserPhotos,
+    } = this.props;
+
+    const { uid, displayName, email } = getCurrentUser();
+
+    if (!currentUser) {
+      setCurrentUser(uid);
+      addUser({ uid, displayName, email });
+    }
 
     if (userPhotos.length <= 1) {
-      //   await fetchUserPhotos();
-      database.ref('photos').on('child_added', snapshot => {
-        addPhoto(snapshot.val());
-      });
+      const results = await fetchUserPhotos(uid);
+
+      database
+        .ref('photos')
+        .child(uid)
+        .on('child_added', snapshot => {
+          if (results.includes(snapshot.val().id)) {
+            return;
+          }
+          addPhoto(snapshot.val());
+          addUserPhoto(uid, snapshot.val().id);
+        });
     }
     this.setState({ loading: false });
   }
+
+  // componentWillUnmount() {
+  //   database
+  //     .ref('photos')
+  //     .child(this.props.currentUser)
+  //     .off('child_added');
+  // }
 
   setOverlay() {
     this.setState({ overlay: true });
@@ -69,9 +102,9 @@ class Home extends Component {
   async handleAdd(e) {
     e.preventDefault();
     const { photo, description } = this.state;
-    const { postPhoto } = this.props;
+    const { postPhoto, currentUser } = this.props;
 
-    await postPhoto(photo, description);
+    await postPhoto(currentUser, photo, description);
 
     this.setState({ overlay: false }, () => {
       this.props.history.push('/');
@@ -106,10 +139,14 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  currentUser: string.isRequired,
   userPhotos: arrayOf(object).isRequired,
-  // fetchUserPhotos: func.isRequired,
+  fetchUserPhotos: func.isRequired,
   // postPhoto: func.isRequired,
   addPhoto: func.isRequired,
+  addUserPhoto: func.isRequired,
+  setCurrentUser: func.isRequired,
+  addUser: func.isRequired,
 
   history: shape({
     push: func,
@@ -117,10 +154,17 @@ Home.propTypes = {
 };
 
 function mapStateToProps(state) {
+  const currentUser = state.users.currentUser;
+  const photoIds = state.users.photos[currentUser] || [];
+
   return {
-    userPhotos: Object.values(state.photos.entities),
+    currentUser,
+    userPhotos: photoIds.map(id => state.photos.entities[id]),
   };
 }
 
-export default connect(mapStateToProps, photos.actions)(Home);
+export default connect(mapStateToProps, {
+  ...photos.actions,
+  ...users.actions,
+})(Home);
 // export default Home;
