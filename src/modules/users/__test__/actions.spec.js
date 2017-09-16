@@ -25,4 +25,17 @@ describe('action creators', () => {
 
     expect(actions.addUsers(users)).toEqual(expectedAction);
   });
+
+  test('should create an action to set a current user', () => {
+    const user = fixtures.getUser();
+
+    const firebaseGoogleUser = { uid: user.id, displayName: user.info.fullname, email: user.social.email };
+
+    const expectedAction = {
+      type: actionTypes.SET_CURRENT_USER,
+      payload: firebaseGoogleUser,
+    };
+
+    expect(actions.setCurrentUser(firebaseGoogleUser)).toEqual(expectedAction);
+  });
 });

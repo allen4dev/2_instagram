@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 const fixtures = {
   getUser() {
     return {
-      id: v4(),
+      uid: v4(),
       username: 'allen4dev',
       social: {
         email: 'allen4dev@gmail.com',

@@ -14,3 +14,10 @@ export function addUsers(users) {
     payload: users,
   };
 }
+
+export function setCurrentUser(uid) {
+  return {
+    type: actionTypes.SET_CURRENT_USER,
+    payload: uid,
+  };
+}
