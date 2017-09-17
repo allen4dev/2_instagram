@@ -1,24 +1,31 @@
 import React from 'react';
+import { string } from 'prop-types';
 
 import Avatar from './../../../../shared/Avatar';
 import Text from './../../../../shared/Text';
 
 import './index.css';
 
-function Comment() {
+function Comment(props) {
   return (
     <div className="Comment">
-      <Avatar
-        src="https://avatarfiles.alphacoders.com/584/thumb-58402.png"
-        description="Avatar from some user"
-        width={15}
-      />
+      <Avatar src={props.avatar} description={props.displayName} width={15} />
       <div className="Comment-description">
-        <span className="Comment-fullname">Some name</span>
-        <Text>Put the comment text here if the comment is too big maybe can truncate the big string.</Text>
+        <span className="Comment-fullname">
+          {props.displayName}
+        </span>
+        <Text>
+          {props.description}
+        </Text>
       </div>
     </div>
-  )
+  );
 }
+
+Comment.propTypes = {
+  avatar: string.isRequired,
+  displayName: string.isRequired,
+  description: string.isRequired,
+};
 
 export default Comment;

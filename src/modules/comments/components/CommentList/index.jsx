@@ -1,17 +1,18 @@
 import React from 'react';
+import { arrayOf, object } from 'prop-types';
 
 import Comment from './../Comment';
 
-function CommentList() {
+function CommentList({ comments }) {
   return (
     <div className="CommentList">
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
+      {comments.map(comment => <Comment {...comment} />)}
     </div>
-  )
+  );
 }
+
+CommentList.propTypes = {
+  comments: arrayOf(object).isRequired,
+};
 
 export default CommentList;

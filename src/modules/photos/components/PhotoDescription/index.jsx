@@ -1,5 +1,5 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { string, func, arrayOf, object } from 'prop-types';
 
 import CommentList from './../../../comments/components/CommentList';
 
@@ -29,10 +29,15 @@ function PhotoDescription(props) {
 
       <Title>Comments</Title>
       <div className="PhotoDescription-comments">
-        <CommentList />
+        <CommentList comments={props.comments} />
       </div>
 
-      <Form />
+      <Form
+        placeholder={props.placeholder}
+        value={props.value}
+        handleChange={props.handleChange}
+        handleSubmit={props.handleSubmit}
+      />
     </div>
   );
 }
@@ -41,6 +46,11 @@ PhotoDescription.propTypes = {
   description: string.isRequired,
   avatar: string.isRequired,
   displayName: string.isRequired,
+  placeholder: string.isRequired,
+  value: string.isRequired,
+  handleChange: func.isRequired,
+  handleSubmit: func.isRequired,
+  comments: arrayOf(object).isRequired,
 };
 
 export default PhotoDescription;
