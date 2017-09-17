@@ -8,8 +8,10 @@ import PhotoDescription from './../../modules/photos/components/PhotoDescription
 import './index.css';
 
 import photos from './../../modules/photos';
+import comments from './../../modules/comments';
 
 import { getCurrentUser } from './../../helpers/auth';
+import { database } from './../../config/firebase';
 
 /* eslint-disable */
 class Detail extends Component {
@@ -26,10 +28,34 @@ class Detail extends Component {
   }
 
   async componentDidMount() {
-    const { match, photo, comments, fetchSingle } = this.props;
+    const {
+      match,
+      photo,
+      photoComments,
+      fetchSingle,
+      fetchPhotoComments,
+      addComment,
+      addPhotoComment,
+    } = this.props;
 
     if (!photo) {
       await fetchSingle(match.params.uid, match.params.id);
+    }
+
+    if (photoComments.length === 0) {
+      const results = await fetchPhotoComments(match.params.id);
+
+      database
+        .ref('comments')
+        .child(match.params.id)
+        .on('child_added', snapshot => {
+          if (results.includes(snapshot.val().id)) {
+            return;
+          }
+
+          addComment(snapshot.val());
+          addPhotoComment(match.params.id, snapshot.val().id);
+        });
     }
 
     this.setState({ loading: false });
@@ -62,7 +88,7 @@ class Detail extends Component {
       return <h1>Loading...</h1>;
     }
 
-    const { photo, comments } = this.props;
+    const { photo, photoComments } = this.props;
 
     return (
       <section className="Detail container">
@@ -71,13 +97,7 @@ class Detail extends Component {
         </div>
         <PhotoDescription
           {...photo}
-          comments={[
-            {
-              displayName: 'dummie',
-              avatar: 'https://example.test',
-              description: 'some comment',
-            },
-          ]}
+          comments={photoComments}
           placeholder="Post comment"
           value={this.state.value}
           handleChange={this.handleChange}
@@ -93,11 +113,15 @@ Detail.propTypes = {
 };
 
 function mapStateToProps(state, { match }) {
+  const commentIds = state.photos.comments[match.params.id] || [];
+
   return {
+    photoComments: commentIds.map(id => state.comments.entities[id]),
     photo: state.photos.entities[match.params.id],
   };
 }
 
 export default connect(mapStateToProps, {
   ...photos.actions,
+  ...comments.actions,
 })(Detail);

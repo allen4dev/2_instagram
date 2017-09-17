@@ -11,12 +11,8 @@ function Comment(props) {
     <div className="Comment">
       <Avatar src={props.avatar} description={props.displayName} width={15} />
       <div className="Comment-description">
-        <span className="Comment-fullname">
-          {props.displayName}
-        </span>
-        <Text>
-          {props.description}
-        </Text>
+        <span className="Comment-fullname">{props.displayName}</span>
+        <Text>{props.body}</Text>
       </div>
     </div>
   );
@@ -25,7 +21,7 @@ function Comment(props) {
 Comment.propTypes = {
   avatar: string.isRequired,
   displayName: string.isRequired,
-  description: string.isRequired,
+  body: string.isRequired,
 };
 
 export default Comment;

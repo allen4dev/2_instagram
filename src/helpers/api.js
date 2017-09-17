@@ -10,7 +10,10 @@ const api = {
   photos: {
     // should receibe userId
     async getSingle(uid, id) {
-      const snapshot = await photosRef.child(uid).child(id).once('value');
+      const snapshot = await photosRef
+        .child(uid)
+        .child(id)
+        .once('value');
       return snapshot.val();
     },
 
@@ -58,7 +61,7 @@ const api = {
 
   comments: {
     async saveComment(photoID, comment) {
-      const newComment = await commentsRef.child(photoID).push();
+      const newComment = commentsRef.child(photoID).push();
       const record = {
         id: newComment.key,
         ...comment,

@@ -7,7 +7,8 @@
 }
 
 .PhotoDescription-comments {
-  max-height: 300px;
+  max-height: 350px;
+  /* height: 50%; */
   overflow-y: scroll;
   margin: var(--medium) 0;
 }

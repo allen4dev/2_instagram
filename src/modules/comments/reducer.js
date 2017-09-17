@@ -17,7 +17,7 @@ function entitiesReducer(state = INITIAL_STATE.entities, action = {}) {
     case actionTypes.ADD_COMMENT:
       return {
         ...state,
-        [action.payload.photoID]: action.payload.comment,
+        [action.payload.id]: action.payload,
       };
 
     default:

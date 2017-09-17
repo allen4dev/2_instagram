@@ -17,6 +17,20 @@ export function addPhotos(photos) {
   };
 }
 
+export function addComments(photoID, commentIds) {
+  return {
+    type: actionTypes.ADD_COMMENTS,
+    payload: { photoID, commentIds },
+  };
+}
+
+export function addPhotoComment(photoID, commentID) {
+  return {
+    type: actionTypes.ADD_PHOTO_COMMENT,
+    payload: { photoID, commentID },
+  };
+}
+
 // Async Actions
 export function fetchSingle(uid, id) {
   return async dispatch => {
@@ -30,14 +44,12 @@ export function fetchSingle(uid, id) {
 
 // export function postPhoto(userId, photo, description) {
 export function postPhoto(photo, info) {
-  return async dispatch => {
+  return async () => {
     const snapshot = await api.photos.savePhotoToStorage(photo);
     const newPhoto = await api.photos.savePhoto({
       ...info,
       src: snapshot.downloadURL,
     });
-
-    dispatch(addPhoto(newPhoto));
 
     return newPhoto;
   };

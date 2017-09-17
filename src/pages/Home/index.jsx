@@ -37,7 +37,14 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const { currentUser, userPhotos, addPhoto, addUserPhoto, fetchUserPhotos, postUser } = this.props;
+    const {
+      currentUser,
+      userPhotos,
+      addPhoto,
+      addUserPhoto,
+      fetchUserPhotos,
+      postUser,
+    } = this.props;
 
     const user = getCurrentUser();
 
@@ -48,13 +55,16 @@ class Home extends Component {
     if (userPhotos.length <= 1) {
       const results = await fetchUserPhotos(user.uid);
 
-      database.ref('photos').child(user.uid).on('child_added', snapshot => {
-        if (results.includes(snapshot.val().id)) {
-          return;
-        }
-        addPhoto(snapshot.val());
-        addUserPhoto(user.uid, snapshot.val().id);
-      });
+      database
+        .ref('photos')
+        .child(user.uid)
+        .on('child_added', snapshot => {
+          if (results.includes(snapshot.val().id)) {
+            return;
+          }
+          addPhoto(snapshot.val());
+          addUserPhoto(user.uid, snapshot.val().id);
+        });
     }
     this.setState({ loading: false });
   }

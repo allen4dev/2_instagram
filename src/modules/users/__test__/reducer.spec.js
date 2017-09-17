@@ -5,7 +5,8 @@ import fixtures from './fixtures';
 
 const INITIAL_STATE = {
   entities: {},
-  currentUser: {},
+  currentUser: '',
+  photos: {},
 };
 
 test('should return the initial state', () => {
@@ -42,8 +43,8 @@ describe('users entities', () => {
             [firebaseGoogleUser.uid]: firebaseGoogleUser,
           },
         },
-        actions.addUser(anotherFirebaseGoogleUser),
-      ),
+        actions.addUser(anotherFirebaseGoogleUser)
+      )
     ).toEqual({
       ...INITIAL_STATE,
       entities: {

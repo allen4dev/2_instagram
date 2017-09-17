@@ -16,16 +16,12 @@ function PhotoDescription(props) {
       <div className="PhotoDescription-header">
         <Avatar src={props.avatar} description={props.displayName} width={20} />
         <div className="PhotoDescription-user">
-          <span className="PhotoDescription-fullname">
-            {props.displayName}
-          </span>
+          <span className="PhotoDescription-fullname">{props.displayName}</span>
           <span className="PhotoDescription-time">12:30</span>
         </div>
       </div>
 
-      <Text>
-        {props.description}
-      </Text>
+      <Text>{props.description}</Text>
 
       <Title>Comments</Title>
       <div className="PhotoDescription-comments">

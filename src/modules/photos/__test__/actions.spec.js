@@ -14,4 +14,27 @@ describe('photos action creators', () => {
 
     expect(actions.addPhoto(photo)).toEqual(expectedAction);
   });
+
+  test('should create an action to add comments ids for a photo', () => {
+    const photoID = fixtures.getPhoto().id;
+
+    const expectedAction = {
+      type: actionTypes.ADD_COMMENTS,
+      payload: { photoID, commentIds: [1, 2, 3] },
+    };
+
+    expect(actions.addComments(photoID, [1, 2, 3])).toEqual(expectedAction);
+  });
+
+  test('should create an action to add a comment id for a photo', () => {
+    const photoID = fixtures.getPhoto().id;
+    const commentID = fixtures.getComment().id;
+
+    const expectedAction = {
+      type: actionTypes.ADD_COMMENT,
+      payload: { photoID, commentID },
+    };
+
+    expect(actions.addComment(photoID, commentID)).toEqual(expectedAction);
+  });
 });
