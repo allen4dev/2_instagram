@@ -1,5 +1,6 @@
 {
   "presets": [
+    "flow",
     [
       "env",
       {
@@ -16,7 +17,8 @@
     "react-hot-loader/babel",
     "transform-object-rest-spread",
     "transform-regenerator",
-    "transform-runtime"
+    "transform-runtime",
+    "transform-class-properties"
   ],
   "env": {
     "test": {

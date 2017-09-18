@@ -1,3 +1,4 @@
+// @flow
 import * as actionTypes from './actionTypes';
 
 import api from './../../helpers/api';
@@ -5,14 +6,14 @@ import api from './../../helpers/api';
 import photos from './../photos';
 
 // Action creators
-export function addComment(comment) {
+export function addComment(comment: Comment) {
   return {
     type: actionTypes.ADD_COMMENT,
     payload: comment,
   };
 }
 
-export function addComments(comments) {
+export function addComments(comments: Array<Comment>) {
   return {
     type: actionTypes.ADD_COMMENTS,
     payload: comments,
@@ -20,7 +21,7 @@ export function addComments(comments) {
 }
 
 // Async actions
-export function fetchPhotoComments(photoID) {
+export function fetchPhotoComments(photoID: string): ThunkAction {
   return async dispatch => {
     const comments = await api.photos.getComments(photoID);
 
@@ -31,7 +32,7 @@ export function fetchPhotoComments(photoID) {
   };
 }
 
-export function postComment(photoID, comment) {
+export function postComment(photoID: string, comment: Comment) {
   return async () => {
     const result = await api.comments.saveComment(photoID, comment);
 
