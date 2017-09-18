@@ -1,6 +1,11 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/react"],
-  "plugins": ["import", "jsx-a11y", "react", "prettier"],
+  "extends": [
+    "plugin:flowtype/recommended",
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["import", "jsx-a11y", "react", "flowtype", "prettier"],
   "env": {
     "es6": true,
     "browser": true,
