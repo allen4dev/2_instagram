@@ -1,20 +1,25 @@
+// @flow
+
 import { combineReducers } from 'redux';
 
-import * as actionTypes from './actionTypes';
+// import * as actionTypes from './actionTypes';
+
+import type { Action } from './model';
 
 const INITIAL_STATE = {
   entities: {},
 };
 
-function entitiesReducer(state = INITIAL_STATE.entities, action = {}) {
+function entitiesReducer(state = INITIAL_STATE.entities, action: Action) {
   switch (action.type) {
-    case actionTypes.ADD_COMMENTS:
+    // Fix: Using actionTypes module breacks flow
+    case 'comments/ADD_COMMENTS':
       return {
         ...state,
         ...action.payload,
       };
 
-    case actionTypes.ADD_COMMENT:
+    case 'comments/ADD_COMMENT':
       return {
         ...state,
         [action.payload.id]: action.payload,

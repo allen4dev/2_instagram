@@ -5,15 +5,17 @@ import api from './../../helpers/api';
 
 import photos from './../photos';
 
+import type { ADD_COMMENT, ADD_COMMENTS, Comment, Comments } from './model';
+
 // Action creators
-export function addComment(comment: Comment) {
+export function addComment(comment: Comment): ADD_COMMENT {
   return {
     type: actionTypes.ADD_COMMENT,
     payload: comment,
   };
 }
 
-export function addComments(comments: Array<Comment>) {
+export function addComments(comments: Comments): ADD_COMMENTS {
   return {
     type: actionTypes.ADD_COMMENTS,
     payload: comments,
@@ -21,8 +23,8 @@ export function addComments(comments: Array<Comment>) {
 }
 
 // Async actions
-export function fetchPhotoComments(photoID: string): ThunkAction {
-  return async dispatch => {
+export function fetchPhotoComments(photoID: string) {
+  return async (dispatch: Function) => {
     const comments = await api.photos.getComments(photoID);
 
     dispatch(photos.actions.addComments(photoID, Object.keys(comments)));
