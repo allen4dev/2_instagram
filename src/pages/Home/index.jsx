@@ -134,7 +134,7 @@ class Home extends Component {
           handleChange={this.handleChange}
           description={this.state.description}
         />
-        <UserInfo />
+        <UserInfo {...this.props.user} />
         <PhotoList photos={this.props.userPhotos} />
         <div className="Home-button">
           <AddButton handleClick={this.setOverlay} />
@@ -147,8 +147,14 @@ class Home extends Component {
 Home.propTypes = {
   currentUser: string.isRequired,
   userPhotos: arrayOf(object).isRequired,
-  fetchUserPhotos: func.isRequired,
+  user: shape({
+    avatar: string,
+    displayName: string,
+    email: string,
+    uid: string,
+  }).isRequired,
   // postPhoto: func.isRequired,
+  fetchUserPhotos: func.isRequired,
   addPhoto: func.isRequired,
   addUserPhoto: func.isRequired,
   postUser: func.isRequired,
@@ -159,12 +165,10 @@ Home.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const currentUser = state.users.currentUser;
-  const photoIds = state.users.photos[currentUser] || [];
-
   return {
-    currentUser,
-    userPhotos: photoIds.map(id => state.photos.entities[id]),
+    user: users.selectors.getUser(state),
+    currentUser: users.selectors.getCurrentUser(state),
+    userPhotos: photos.selectors.getUserPhotos(state),
   };
 }
 

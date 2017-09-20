@@ -113,11 +113,11 @@ Detail.propTypes = {
 };
 
 function mapStateToProps(state, { match }) {
-  const commentIds = state.photos.comments[match.params.id] || [];
-
   return {
-    photoComments: commentIds.map(id => state.comments.entities[id]),
-    photo: state.photos.entities[match.params.id],
+    photoComments: comments.selectors.getPhotoComments(state, {
+      id: match.params.id,
+    }),
+    photo: photos.selectors.getPhoto(state, { id: match.params.id }),
   };
 }
 

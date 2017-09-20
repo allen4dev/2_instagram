@@ -1,4 +1,5 @@
 import React from 'react';
+import { string } from 'prop-types';
 
 import SimpleText from './../../../../shared/SimpleText';
 import Text from './../../../../shared/Text';
@@ -23,29 +24,32 @@ function renderCount() {
         <SimpleText>following</SimpleText>
       </div>
     </div>
-  )
+  );
 }
 
-function UserInfo() {
+function UserInfo(props) {
   return (
     <Card>
       <div className="UserInfo">
-        <Avatar
-          src="https://avatarfiles.alphacoders.com/846/84606.jpg"
-          description="allen4dev avatar"
-          width={30}
-        />
+        <Avatar src={props.avatar} description={props.displayName} width={30} />
         <div className="UserInfo-description">
           <div className="UserInfo-name">
-            <span className="UserInfo-username">allen4dev</span>
-            <span className="UserInfo-fullname">Alan Aliaga</span>
+            <span className="UserInfo-username"> - </span>
+            <span className="UserInfo-fullname">{props.displayName}</span>
           </div>
-          <Text color="text-dark">Description about the user comes here</Text>
+          <Text color="text-dark">{props.email}</Text>
           {renderCount()}
         </div>
       </div>
     </Card>
   );
 }
+
+UserInfo.propTypes = {
+  avatar: string.isRequired,
+  displayName: string.isRequired,
+  email: string.isRequired,
+  // uid: string.isRequired,
+};
 
 export default UserInfo;
